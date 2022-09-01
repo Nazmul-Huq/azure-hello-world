@@ -1,0 +1,7 @@
+package com.example.azurehelloworld.repo;
+
+import com.example.azurehelloworld.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepo extends JpaRepository<User, Long> {
+}
