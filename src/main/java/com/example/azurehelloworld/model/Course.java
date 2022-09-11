@@ -1,11 +1,13 @@
 package com.example.azurehelloworld.model;
 
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "course")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -13,9 +15,16 @@ public class User {
 
     private String name;
 
-    @ManyToOne()
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "course", fetch = FetchType.LAZY)
+    private List<User> users;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     public String getName() {
         return name;
@@ -33,20 +42,11 @@ public class User {
         this.id = id;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
+        return "Course{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", course=" + course +
                 '}';
     }
 }
